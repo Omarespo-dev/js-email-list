@@ -1,64 +1,57 @@
-// Attraverso l’apposita API di Boolean
+//  Attraverso l’apposita API di Boolean
 //  https://flynn.boolean.careers/exercises/api/random/mail
 //  generare 10 indirizzi email e stamparli in pagina all’interno di una lista.
 
 
-// SELEZIONE ELEMENTO DI OUTPUT
+// SELEZIONE ELEMENTO DI OUTPUT/INPUT
 let outputLi = document.getElementById("containerLista")
 const inputButton = document.querySelector(".button")
 
 
-// FACCIO CICLO FOR DOVE GLI DICO DI STAMPARE 10 EMAIL DIVERSE
-for(let i = 0; i < 10; i++){
+// FACCIO FUNCTION DOVE ALL INTERNO ABBIAMO ....
+
+function emailGenerate(){
+
+    // FACCIO CICLO FOR DOVE GLI DICO DI STAMPARE 10 EMAIL DIVERSE
+    for(let i = 0; i < 10; i++){
     
-    // USO AXIOS .GET DOVE GLI DICO CHE VADO A PRENDERE DALL API LE EMAIL
-    axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
-    .then (response => {
-        
-        // ESEGUO TUTTO IL CODICE SE VA A BUON FIN OK, ALTRIMENTI CATCH
-
-        // variabile dell oggetto response.data
-        const result = response.data
-
-        // Variable dove ricavo email da result
-        let email = result.response
-
-
-        
+        // FACCIO UNA RICHIESTA VERSO UN SERVER DI TIPO GET 
+        axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
+        .then (response => {
+            
+            // ESEGUO TUTTO IL CODICE SE VA A BUON FINE, ALTRIMENTI CATCH
     
-    // AGGIUNGO EVENTO BOTTONE
+            // variabile dell oggetto response.data
+            const result = response.data
+    
+            // Variable dove ricavo email da result
+            let email = result.response
+    
+            // STRINGA CON BACKTICK DOVE INSERISCO LA EMAIL
+            let stringa= `<li>${email}</li>`
+    
+    
+            // ELEMENTO DI OUTPUT
+            outputLi.innerHTML += stringa
+    
+        })
 
-    inputButton.addEventListener("click", function( ){
-        outputLi.classList.add("active")
-        outputLi.classList.remove("none")
+        .catch(error => {
+            
+            //CODICE DA ESEGUIRE IN CASO DA ERRORE
+            console.error(error)
+        })
+    
+    
+    }
 
-        // STRINGA CON BACKTICK DOVE INSERISCO LA EMAIL
-        let stringa= `<li>${email}</li>`
-
-
-        // ELEMENTO DI OUTPUT
-        outputLi.innerHTML += stringa
-        
-    })
-
-
-
-    })
-    .catch(error => {
-        
-        //CODICE DA ESEGUIRE IN CASO DA ERRORE
-        console.error(error)
-    })
-    .then(() => {
-        
-        // CODICE DA SEGUIRE A PRESCINDERE DALL'ESITO
-    })
-
+    // RESETTO IL CONTENUTO DELLA LISTA
+    outputLi.innerHTML = "";
 }
 
 
-
-
+// AGGIUNGO EVENTO BOTTON E GLI DO LA FUNZIONE DELLE EMAIL GENERATE
+inputButton.addEventListener("click",emailGenerate)
 
 
 
