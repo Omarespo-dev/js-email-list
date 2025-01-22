@@ -4,8 +4,8 @@
 
 
 // SELEZIONE ELEMENTO DI OUTPUT
-const outputLi = document.getElementById("containerLista")
-// console.log(outputLi)
+let outputLi = document.getElementById("containerLista")
+const inputButton = document.querySelector(".button")
 
 
 // FACCIO CICLO FOR DOVE GLI DICO DI STAMPARE 10 EMAIL DIVERSE
@@ -22,7 +22,15 @@ for(let i = 0; i < 10; i++){
 
         // Variable dove ricavo email da result
         let email = result.response
-        console.log(email)
+
+
+        
+    
+    // AGGIUNGO EVENTO BOTTONE
+
+    inputButton.addEventListener("click", function( ){
+        outputLi.classList.add("active")
+        outputLi.classList.remove("none")
 
         // STRINGA CON BACKTICK DOVE INSERISCO LA EMAIL
         let stringa= `<li>${email}</li>`
@@ -30,6 +38,11 @@ for(let i = 0; i < 10; i++){
 
         // ELEMENTO DI OUTPUT
         outputLi.innerHTML += stringa
+        
+    })
+
+
+
     })
     .catch(error => {
         
@@ -42,7 +55,6 @@ for(let i = 0; i < 10; i++){
     })
 
 }
-
 
 
 
